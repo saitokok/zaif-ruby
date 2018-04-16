@@ -65,7 +65,7 @@ module Zaif
         #
         # Trade API
         #
-        
+
         # Get user infomation.
         # Need api key.
         # @return [Hash] Infomation of user.
@@ -73,11 +73,11 @@ module Zaif
             json = post_ssl(@zaif_trade_url, "get_info", {})
             return json
         end
-        
+
         # Get your trade history.
         # Avalible options: from. count, from_id, end_id, order, since, end, currency_pair
         # Need api key.
-        # @param [Hash] 
+        # @param [Hash]
         def get_my_trades(option = {})
             json = post_ssl(@zaif_trade_url, "trade_history", option)
             # Convert to datetime
@@ -124,8 +124,9 @@ module Zaif
 
         # Cancel order.
         # Need api key.
-        def cancel(order_id)
-            json = post_ssl(@zaif_trade_url, "cancel_order", {:order_id => order_id})
+        def cancel(order_id, option = {})
+            option["order_id"] = order_id
+            json = post_ssl(@zaif_trade_url, "cancel_order", option)
             return json
         end
 
@@ -228,6 +229,6 @@ module Zaif
                 sleep(@cool_down_time)
             end
         end
-        
+
     end
 end
